@@ -156,6 +156,8 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    {{-- Toastr --}}
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/toastr/toastr.min.css') }}">
 @endsection
 
 @section('scripts')
@@ -167,8 +169,17 @@
     <script src="{{ asset('adminlte/plugins/datatables/datatables.min.js') }}"></script>
     <!-- Select2 -->
     <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
+    {{-- Toastr --}}
+    <script src="{{ asset('adminlte/plugins/toastr/toastr.min.js') }}"></script>
 
     <script>
+        // Initialize toastr options if needed
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "positionClass": "toast-bottom-right",
+        };
+
         $(function() {
             $("#users_table").DataTable({
                 processing: true,
@@ -205,12 +216,18 @@
                 ],
                 fixedHeader: true,
             })
-        });
 
-        $(document).ready(function() {
             $('.select2bs4').select2({
                 theme: 'bootstrap4'
             });
         });
+
+        @if (session('success'))
+            toastr.success("{{ session('success') }}");
+        @endif
+
+        @if (session('error'))
+            toastr.error("{{ session('error') }}");
+        @endif
     </script>
 @endsection

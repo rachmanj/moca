@@ -75,3 +75,31 @@
         </div>
     </form>
 @endsection
+
+@section('styles')
+    <!-- Include Toastr CSS -->
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/toastr/toastr.min.css') }}">
+@endsection
+
+@section('scripts')
+    <!-- Include Toastr JS -->
+    <script src="{{ asset('adminlte/plugins/toastr/toastr.min.js') }}"></script>
+    <script>
+        // Initialize toastr options if needed
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+        };
+
+        $(document).ready(function() {
+            @if (session('success'))
+                toastr.success("{{ session('success') }}");
+            @endif
+
+            @if (session('error'))
+                toastr.error("{{ session('error') }}");
+            @endif
+        });
+    </script>
+@endsection

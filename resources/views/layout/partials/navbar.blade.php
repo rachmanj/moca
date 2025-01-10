@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand-md navbar-light navbar-dark layout-fixed">
+<nav class="main-header navbar navbar-expand-md navbar-light navbar-dark layout-fixed py-0">
     <div class="container">
         <a href="/"class="navbar-brand">
             <img src="{{ asset('adminlte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
@@ -19,14 +19,17 @@
                     <a href="#" class="nav-link">Dashboard</a>
                 </li>
 
+                {{-- <a href="#" class="nav-link">Search</a> --}}
 
+                @include('layout.partials.menu.logistic')
 
+                @include('layout.partials.menu.master')
 
-                <a href="#" class="nav-link">Search</a>
+                @include('layout.partials.menu.site')
 
-                @can('akses_admin')
-                    @include('layout.partials.menu.admin')
-                @endcan
+                {{-- @can('akses_admin') --}}
+                @include('layout.partials.menu.admin')
+                {{-- @endcan --}}
 
             </ul>
         </div>

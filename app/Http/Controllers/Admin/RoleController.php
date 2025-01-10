@@ -40,7 +40,7 @@ class RoleController extends Controller
 
         $this->syncPermissions($role, $request->permissions);
 
-        Alert::success('Success', 'Role created successfully');
+        session()->flash('success', 'Role created successfully');
 
         return redirect()->route('admin.roles.index');
     }
@@ -62,7 +62,7 @@ class RoleController extends Controller
 
         $this->syncPermissions($role, $request->permissions);
 
-        Alert::success('Success', 'Role updated successfully');
+        session()->flash('success', 'Role updated successfully');
 
         return redirect()->route('admin.roles.index');
     }
@@ -77,7 +77,7 @@ class RoleController extends Controller
         // Delete the role
         $role->delete();
 
-        Alert::success('Success', 'Role deleted successfully');
+        session()->flash('success', 'Role deleted successfully');
 
         return redirect()->route('admin.roles.index');
     }

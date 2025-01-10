@@ -38,8 +38,8 @@ class UserController extends Controller
 
         $user->assignRole('user');
 
-        Alert::success('Success', 'User created successfully');
-
+        // Alert::success('Success', 'User created successfully');
+        session()->flash('success', 'User created successfully');
         return redirect()->route('admin.users.index');
     }
 
@@ -49,8 +49,8 @@ class UserController extends Controller
         $user->is_active = 1; //true
         $user->save();
 
-        Alert::success('Success', 'User activated successfully');
-
+        // Alert::success('Success', 'User activated successfully');
+        session()->flash('success', 'User activated successfully');
         return redirect()->route('admin.users.index');
     }
 
@@ -66,7 +66,8 @@ class UserController extends Controller
         $user->is_active = 0; //false
         $user->save();
 
-        Alert::success('Success', 'User deactivated successfully');
+        // Alert::success('Success', 'User deactivated successfully');
+        session()->flash('success', 'User deactivated successfully');
 
         return redirect()->route('admin.users.index');
     }
@@ -111,7 +112,8 @@ class UserController extends Controller
             $user->syncRoles([]); // Clear roles if none are selected
         }
 
-        Alert::success('Success', 'User updated successfully');
+        // Alert::success('Success', 'User updated successfully');
+        session()->flash('success', 'User updated successfully');
 
         return redirect()->route('admin.users.index');
     }
@@ -127,7 +129,8 @@ class UserController extends Controller
 
         $user->delete();
 
-        Alert::success('Success', 'User deleted successfully');
+        // Alert::success('Success', 'User deleted successfully');
+        session()->flash('success', 'User deleted successfully');
 
         return redirect()->route('admin.users.index');
     }

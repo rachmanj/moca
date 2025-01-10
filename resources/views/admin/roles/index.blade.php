@@ -40,6 +40,7 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('adminlte/plugins/datatables/css/datatables.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('adminlte/plugins/toastr/toastr.min.css') }}">
 @endsection
 
 @section('scripts')
@@ -49,7 +50,7 @@
     <script src="{{ asset('adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('adminlte/plugins/datatables/datatables.min.js') }}"></script>
-
+    <script src="{{ asset('adminlte/plugins/toastr/toastr.min.js') }}"></script>
     <script>
         $(function() {
             $("#roles").DataTable({
@@ -75,12 +76,21 @@
             })
         });
 
+        // @if (session('success'))
+        //     Swal.fire({
+        //         icon: 'success',
+        //         title: 'Success',
+        //         text: '{{ session('success') }}',
+        //     });
+        // @endif
+
+        toastr.options.positionClass = 'toast-top-right'; // Change position to top right
         @if (session('success'))
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: '{{ session('success') }}',
-            });
+            toastr.success("{{ session('success') }}");
+        @endif
+
+        @if (session('error'))
+            toastr.error("{{ session('error') }}");
         @endif
     </script>
 @endsection
