@@ -5,38 +5,38 @@ DECLARE @B AS DATE
 SET @A = /* a.CreateDate 'FromDate' */ '[%0]'
 SET @B = /* a.CreateDate 'ToDate'  */ '[%1]'
 select 
-a.DocNum,
-a.createDate,
-a.DocDate,
-'' 'WO No',
-'' 'Subject',
-'' 'Category',
-b.VisOrder + 1  'Line',
-c.U_MIS_IssuePName 'Issue Purpose',
-d.U_MIS_CategoryName 'Job Category',
-E.U_MIS_JobDesc 'Job Name',
-a.U_MIS_UnitNo ' Unit No',
-g.U_MIS_ModeNo 'Model No',
-a.U_MIS_SerialNo 'Serial No',
-a.U_MIS_HoursMeter 'Hours Meter',
-b.ItemCode,
-b.Dscription,
-b.Quantity,
-b.Stockprice,
-b.Quantity * b.StockPrice Total,
-A.U_MIS_Project,
-f.WhsName,
-a.U_MIS_NoBA,
-'' [Order Type],
+a.DocNum as 'document_number',
+a.createDate as 'creation_date',
+a.DocDate as 'document_date',
+'' 'wo_number',
+'' 'subject',
+'' 'category',
+b.VisOrder + 1  'line',
+c.U_MIS_IssuePName 'issue_purpose',
+d.U_MIS_CategoryName 'job_category',
+E.U_MIS_JobDesc 'job_name',
+a.U_MIS_UnitNo 'unit_number',
+g.U_MIS_ModeNo 'model_number',
+a.U_MIS_SerialNo 'serial_number',
+a.U_MIS_HoursMeter 'hours_meter',
+b.ItemCode 'item_code',
+b.Dscription 'desc',
+b.Quantity 'qty',
+b.Stockprice 'stock_price',
+b.Quantity * b.StockPrice 'total_price',
+A.U_MIS_Project 'project_code',
+f.WhsName 'warehouse_name',
+a.U_MIS_NoBA 'no_ba_oldcore',
+'' 'order_type',
 CASE 
-WHEN U_MIS_CancelStat='Y' THEN 'Cancel'
-END AS 'Status GI',
-U_U_MIS_GRNo 'GR No',
-NULL 'M Ret No',
-NULL 'ItemCode',
-NULL 'Dscription',
-NULL 'Quantity',
-a.Comments
+WHEN U_MIS_CancelStat='Y' THEN 'cancel'
+END AS 'status_gi',
+U_U_MIS_GRNo 'gr_no',
+NULL 'm_ret_no',
+NULL 'item_code',
+NULL 'desc',
+NULL 'qty',
+a.Comments 'keterangan'
 from OIGE a
 inner join IGE1 b on a.DocEntry =  b.DocEntry
 left join [@MIS_ISSUEPURPOSE] c on a.U_MIS_IssuePurpose = c.U_MIS_IssuePCode
@@ -55,39 +55,39 @@ select
 a.DocNum,
 a.createDate,
 a.DocDate,
-a.U_MIS_WoNo 'WO No',
-J.Subject 'Subject',
+a.U_MIS_WoNo 'wo_number',
+J.Subject 'subject',
 CASE J.U_Mis_JobCtg
 	WHEN 'A' THEN 'Schedule'
 	WHEN 'B' THEN 'Unschedule'
 	WHEN 'C' THEN 'Accident'
 	WHEN 'D' THEN 'Addotional Job'
 	WHEN 'E' THEN 'Unit Rental'
-	END As 'Category',
-b.VisOrder + 1  'Line',
-c.U_MIS_IssuePName 'Issue Purpose',
-d.U_MIS_CategoryName 'Job Category',
-E.U_MIS_JobDesc 'Job Name',
-a.U_MIS_UnitNo ' Unit No',
-g.U_MIS_ModeNo 'Model No',
-a.U_MIS_SerialNo 'Serial No',
-a.U_MIS_HoursMeter 'Hours Meter',
-b.ItemCode,
-b.Dscription,
-b.Quantity,
-b.Stockprice,
-b.Quantity * b.StockPrice Total,
-A.U_MIS_Project,
-f.WhsName,
-a.U_MIS_NoBA,
-a.U_MIS_OrderType,
-''[Status Doc],
-''[GR No],
-h.DocNum 'M Ret No',
-i.ItemCode,
-i.Dscription,
-i.Quantity,
-a.Comments
+	END As 'category',
+b.VisOrder + 1  'line',
+c.U_MIS_IssuePName 'issue_purpose',
+d.U_MIS_CategoryName 'job_category',
+E.U_MIS_JobDesc 'job_name',
+a.U_MIS_UnitNo 'unit_number',
+g.U_MIS_ModeNo 'model_number',
+a.U_MIS_SerialNo 'serial_number',
+a.U_MIS_HoursMeter 'hours_meter',
+b.ItemCode 'item_code',
+b.Dscription 'desc',
+b.Quantity 'qty',
+b.Stockprice 'stock_price',
+b.Quantity * b.StockPrice 'total_price',
+A.U_MIS_Project 'project_code',
+f.WhsName 'warehouse_name',
+a.U_MIS_NoBA 'no_ba_oldcore',
+a.U_MIS_OrderType 'order_type',
+'' 'status_doc',
+'' 'gr_no',
+h.DocNum 'm_ret_no',
+i.ItemCode 'item_code',
+i.Dscription 'desc',
+i.Quantity 'qty',
+a.Comments 'keterangan'
 from ODLN a
 inner join DLN1 b on a.DocEntry =  b.DocEntry
 Left Join RDN1 i on B.DocEntry=i.BaseEntry AND b.ItemCode=i.ItemCode
@@ -109,29 +109,29 @@ select
 a.DocNum,
 a.createDate,
 a.DocDate,
-d.U_MIS_WoNo 'WO No',
-e.Subject 'Subject',
+d.U_MIS_WoNo 'wo_number',
+e.Subject 'subject',
 CASE e.U_Mis_JobCtg
-	WHEN 'A' THEN 'Schedule'
+	WHEN 'A' THEN 'schedule'
 	WHEN 'B' THEN 'Unschedule'
 	WHEN 'C' THEN 'Accident'
 	WHEN 'D' THEN 'Addotional Job'
 	WHEN 'E' THEN 'Unit Rental'
 	END As 'Category',
-b.VisOrder + 1  'Line',
-c.U_MIS_IssuePName 'Issue Purpose',
-NULL 'Job Category',
-NULL 'Job Name',
-b.U_MIS_UnitNo ' Unit No',
-f.U_MIS_ModeNo 'Model No',
-a.U_MIS_SerialNo 'Serial No',
-a.U_MIS_HoursMeter 'Hours Meter',
+b.VisOrder + 1  'line',
+c.U_MIS_IssuePName 'issue_purpose',
+NULL 'job_category',
+NULL 'job_name',
+b.U_MIS_UnitNo 'unit_number',
+f.U_MIS_ModeNo 'model_number',
+a.U_MIS_SerialNo 'serial_number',
+a.U_MIS_HoursMeter 'hours_meter',
 b.ItemCode,
 b.Dscription,
 b.Quantity,
 b.Stockprice,
-b.LineTotal Total,
-b.Project,
+b.LineTotal 'total_price',
+b.Project 'project_code',
 NULL,
 NULL,
 a.U_MIS_OrderType,
@@ -141,7 +141,7 @@ NULL,
 NULL,
 NULL,
 NULL,
-a.Comments
+a.Comments 'keterangan'
 from OPCH a
 inner join PCH1 b on a.DocEntry =b.DocEntry
 left join ORDR d on b.U_MISMRNO =d.Docnum

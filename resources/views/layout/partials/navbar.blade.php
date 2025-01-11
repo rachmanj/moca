@@ -23,9 +23,10 @@
 
                 @include('layout.partials.menu.logistic')
 
+                @include('layout.partials.menu.site')
+
                 @include('layout.partials.menu.master')
 
-                @include('layout.partials.menu.site')
 
                 {{-- @can('akses_admin') --}}
                 @include('layout.partials.menu.admin')
